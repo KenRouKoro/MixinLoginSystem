@@ -1,0 +1,17 @@
+.register-rich-content {
+    background-image: url("https://api.cyrilstudio.top/bing/image.php");
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    height: 100vh;
+    backdrop-filter: blur(5px);
+}
+.register-left-div {
+    align-items: center;
+    display: flex;
+    max-width: 350px;
+    background: rgba(255,255,255,255);
+}
+.register-left-div {
+    background-image: none;
+}

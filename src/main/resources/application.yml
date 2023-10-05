@@ -1,0 +1,22 @@
+server:
+  port: 18620
+spring:
+  application:
+    name:  MixinLogin
+  datasource:
+    url: jdbc:h2:file:./data/database
+    driver-class-name: org.h2.Driver
+    username: admin
+    password: 123456
+  jpa:
+    database: h2
+    hibernate:
+      ddl-auto: create
+    show-sql: false
+  h2:
+    console:
+      path: /h2admin
+      enabled: true
+vaadin:
+  pnpm:
+    enable: true
