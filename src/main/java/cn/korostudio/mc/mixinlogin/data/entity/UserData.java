@@ -24,6 +24,7 @@ public class UserData  {
     String passwd;
     String encryption_type;
     String roles;
+    boolean enable = false;
     @OneToOne
     UserConfig userConfig;
 

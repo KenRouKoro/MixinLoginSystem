@@ -10,6 +10,7 @@ import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.shared.Tooltip;
 import com.vaadin.flow.router.HasDynamicTitle;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.PermitAll;
@@ -34,16 +35,22 @@ public class UserArchivesView extends VerticalLayout implements HasDynamicTitle 
 
         setSpacing(false);
 
-        Avatar avatar = new Avatar(user.getEmail(), STR."https://api.paugram.com/gravatar/?email=\{ URLUtil.encode(user.getEmail(), StandardCharsets.UTF_8) }&replace=retro");
-        avatar.addThemeVariants(AvatarVariant.LUMO_XLARGE);
-        //avatar.setWidth("200px");
+        Image avatar = new Image(STR."https://api.paugram.com/gravatar/?email=\{ URLUtil.encode(user.getEmail(), StandardCharsets.UTF_8) }&replace=retro",user.getEmail());
+        //avatar.addThemeVariants(AvatarVariant.LUMO_XLARGE);
+        avatar.setWidth("150px");
+        avatar.setHeight("150px");
+        avatar.getStyle().set("border-radius","50%").set("object-fit","cover");
 
 
         H2 username = new H2(user.getName());
+        Paragraph uid = new Paragraph(STR."uid:\{user.getUid()}");
+        Tooltip tooltip = Tooltip.forComponent(uid)
+                .withText("Different from Minecraft UUID")
+                .withPosition(Tooltip.TooltipPosition.TOP_START);
         Paragraph email = new Paragraph(user.getEmail());
 
 
-        add(avatar,username,email);
+        add(avatar,username,email,uid);
 
         setSizeFull();
         setJustifyContentMode(JustifyContentMode.START);
@@ -54,6 +61,6 @@ public class UserArchivesView extends VerticalLayout implements HasDynamicTitle 
 
     @Override
     public String getPageTitle() {
-        return user!=null?STR."\{user.getName()}'s Home":"Error";
+        return user!=null?STR."\{user.getName()}'s Archives":"Error";
     }
 }

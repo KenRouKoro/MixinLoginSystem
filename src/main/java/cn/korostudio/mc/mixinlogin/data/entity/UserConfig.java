@@ -21,6 +21,8 @@ public class UserConfig {
     @Lob
     String info = "";
 
+    String avatarUrl = "";
+
     boolean useUrlAvatar = false;
 
     @MapsId

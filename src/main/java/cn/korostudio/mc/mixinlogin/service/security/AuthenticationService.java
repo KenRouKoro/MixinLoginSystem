@@ -5,6 +5,7 @@ import cn.korostudio.mc.mixinlogin.data.entity.UserData;
 import cn.korostudio.mc.mixinlogin.service.jpadata.UserConfigRepository;
 import cn.korostudio.mc.mixinlogin.service.jpadata.UserDataRepository;
 import com.vaadin.flow.spring.security.AuthenticationContext;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -45,9 +46,20 @@ public class AuthenticationService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
     @Transactional
+    public UserConfig createUserConfig(UserData userData){
+        return UserConfig.builder()
+                .useUrlAvatar(false)
+                .avatarUrl("")
+                .info("")
+                .userData(userData)
+                .build();
+    }
+    @Transactional
     public void register(UserData userData){
         log.info(userData.toString());
+        userData.setUserConfig(createUserConfig(userData));
         dataRepository.save(userData);
+        configRepository.save(userData.getUserConfig());
     }
     @Transactional
     public void register(UserData userData,String unencryptedPasswd){
@@ -67,6 +79,10 @@ public class AuthenticationService {
         UserData userData = dataRepository.findByEmail(userDetails.getUsername());
         if (userData==null)throw  new UsernameNotFoundException(STR."not UserData define \{userDetails.getUsername()}");
         return userData;
+    }
+    @Transactional
+    public boolean isUserTableEmpty() {
+        return dataRepository.count() == 0;
     }
     @Transactional
     public boolean hasUserData(String email){

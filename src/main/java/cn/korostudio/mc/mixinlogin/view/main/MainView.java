@@ -3,7 +3,9 @@ package cn.korostudio.mc.mixinlogin.view.main;
 import cn.hutool.core.util.URLUtil;
 import cn.korostudio.mc.mixinlogin.data.entity.UserData;
 import cn.korostudio.mc.mixinlogin.service.security.AuthenticationService;
+import cn.korostudio.mc.mixinlogin.view.main.subview.AdminCenterView;
 import cn.korostudio.mc.mixinlogin.view.main.subview.IndexView;
+import cn.korostudio.mc.mixinlogin.view.main.subview.RoleManagementView;
 import cn.korostudio.mc.mixinlogin.view.main.subview.UserArchivesView;
 import cn.korostudio.mc.mixinlogin.view.security.LoginView;
 import cn.korostudio.mc.mixinlogin.view.security.RegisterView;
@@ -78,6 +80,8 @@ public class MainView extends AppLayout {
         SideNav nav = new SideNav();
         addItemIfAccess(nav, "Index", IndexView.class, LineAwesomeIcon.HOME_SOLID.create());
         addItemIfAccess(nav, "User Archives", UserArchivesView.class, LineAwesomeIcon.USER.create());
+        addItemIfAccess(nav, "Role Management", RoleManagementView.class, LineAwesomeIcon.USER_TAG_SOLID.create());
+        addItemIfAccess(nav, "Admin Center", AdminCenterView.class, LineAwesomeIcon.HAMMER_SOLID.create());
         return nav;
     }
 

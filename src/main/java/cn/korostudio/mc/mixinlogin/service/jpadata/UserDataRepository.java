@@ -1,5 +1,6 @@
 package cn.korostudio.mc.mixinlogin.service.jpadata;
 
+import cn.korostudio.mc.mixinlogin.data.entity.UserConfig;
 import cn.korostudio.mc.mixinlogin.data.entity.UserData;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -12,5 +13,7 @@ public interface UserDataRepository extends JpaRepository<UserData,String> , Jpa
     boolean existsByEmail(String email);
     @Query("select u.uid from UserData u where u.email = ?1")
     String findUidByEmail(String email);
+    @Query("select u.userConfig from UserData u where u.email = ?1")
+    UserConfig findUserConfigByEmail(String email);
 
 }

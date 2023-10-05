@@ -117,8 +117,14 @@ public class RegisterView extends Div {
             UserData user = UserData.builder()
                     .name(username)
                     .email(email)
-                    .roles("user")
+                    .roles("USER")
                     .build();
+
+            if (authenticationService.isUserTableEmpty()){
+                user.setRoles("ADMIN");
+                user.setEnable(true);
+                Notification notification = showNotification("You are the default administrator user.", NotificationVariant.LUMO_SUCCESS);
+            }
 
             authenticationService.register(user,password);
             Notification notification = showNotification("Registered Successfully , Just a moment.", NotificationVariant.LUMO_SUCCESS);
