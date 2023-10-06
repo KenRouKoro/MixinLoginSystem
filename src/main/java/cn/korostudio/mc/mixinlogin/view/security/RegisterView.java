@@ -25,7 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @AnonymousAllowed
 @PageTitle("Register")
-@Route(value = "register")
+@Route(value = "registerview")
 @CssImport("./styles/register-styles.css")
 public class RegisterView extends Div {
     private final AuthenticationService authenticationService;

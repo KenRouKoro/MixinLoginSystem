@@ -1,6 +1,9 @@
 package cn.korostudio.mc.mixinlogin.view.security;
 
 import cn.korostudio.mc.mixinlogin.service.security.AuthenticationService;
+import cn.korostudio.mc.mixinlogin.view.main.MainView;
+import cn.korostudio.mc.mixinlogin.view.main.subview.IndexView;
+import cn.korostudio.mc.mixinlogin.view.main.subview.UserArchivesView;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.login.LoginI18n;
@@ -17,7 +20,7 @@ import java.util.Optional;
 
 @AnonymousAllowed
 @PageTitle("Login")
-@Route(value = "login")
+@Route(value = "loginview")
 public class LoginView extends LoginOverlay implements BeforeEnterObserver {
 
     private final AuthenticationService authenticatedUser;
@@ -52,7 +55,7 @@ public class LoginView extends LoginOverlay implements BeforeEnterObserver {
         if (authenticatedUser.getAuthenticatedUser().isPresent()){
             // Already logged in
             setOpened(false);
-            event.getUI().navigate("/index");
+            event.getUI().navigate(IndexView.class);
         }
 
         setError(event.getLocation().getQueryParameters().getParameters().containsKey("error"));

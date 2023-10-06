@@ -1,4 +1,4 @@
-package cn.korostudio.mc.mixinlogin.api.util;
+package cn.korostudio.mc.mixinlogin.util;
 
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;

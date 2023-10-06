@@ -12,10 +12,6 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class AuthController {
 
-
-    /*
-
-     */
     @PostMapping(value = "/authenticate", produces = "application/json;charset=UTF-8")
     public String authenticate(@RequestBody JSONObject params, HttpServletRequest request) {
         return params.toString();

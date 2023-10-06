@@ -35,7 +35,9 @@ public class SecurityConfig extends VaadinWebSecurity {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth.requestMatchers(new AntPathRequestMatcher("/public/**")).permitAll())
-                .authorizeHttpRequests(auth->auth.requestMatchers(new AntPathRequestMatcher("/api/**")).permitAll());
+                .authorizeHttpRequests(auth -> auth.requestMatchers(new AntPathRequestMatcher("/api/**")).permitAll())
+                .authorizeHttpRequests(auth -> auth.requestMatchers(new AntPathRequestMatcher("/line-awesome/**/*.svg")).permitAll());
+
 
         super.configure(http);
 
@@ -45,7 +47,9 @@ public class SecurityConfig extends VaadinWebSecurity {
     @Override
     public void configure(WebSecurity web) throws Exception {
         // Customize your WebSecurity configuration.
+
         super.configure(web);
+
     }
     @Bean
     public PasswordEncoder passwordEncoder() {

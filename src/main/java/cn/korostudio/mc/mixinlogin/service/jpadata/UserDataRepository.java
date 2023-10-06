@@ -15,5 +15,9 @@ public interface UserDataRepository extends JpaRepository<UserData,String> , Jpa
     String findUidByEmail(String email);
     @Query("select u.userConfig from UserData u where u.email = ?1")
     UserConfig findUserConfigByEmail(String email);
+    @Query("select u.userConfig from UserData u where u.uid = ?1")
+    UserConfig findUserConfigByUID(String UID);
+    @Query("select u.encryption_type, u.passwd from UserData u where u.email = ?1")
+    List<Object[]> findPasswdByEmail(String email);
 
 }

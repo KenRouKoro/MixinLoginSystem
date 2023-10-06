@@ -18,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -39,10 +40,29 @@ public class AuthenticationService {
 
     public static final String RESTR = "\\{(.+?)\\}(.*)";
 
-
+    /**
+     * 使用用户名密码在当前上下文进行登录
+     * @param username 用户名（邮箱）
+     * @param password 密码（未编码）
+     */
     public void login(String username, String password) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         SecurityContextHolder.getContext().setAuthentication(authentication);
+    }
+
+    /**
+     * 使用用户名密码验证用户，不进行登录
+     * @param username 用户名（邮箱）
+     * @param password 密码（未编码）
+     * @return 验证是否通过
+     */
+    public boolean verification(String username, String password){
+        List<Object[]> passwords = dataRepository.findPasswdByEmail(username);
+        if (passwords.isEmpty())return false;
+        for(Object[] objs:passwords){
+            if (passwordEncoder.matches(password,STR."{\{objs[0]}}\{objs[1]}"))return true;
+        }
+        return false;
     }
     @Transactional
     public UserConfig createUserConfig(UserData userData){
@@ -53,6 +73,11 @@ public class AuthenticationService {
                 .userData(userData)
                 .build();
     }
+
+    /**
+     * 这个方法不应由外部调用
+     * @param userData
+     */
     @Transactional
     public void register(UserData userData){
         log.info(userData.toString());
@@ -60,6 +85,12 @@ public class AuthenticationService {
         dataRepository.save(userData);
         configRepository.save(userData.getUserConfig());
     }
+
+    /**
+     * 注册方法，会自动构建伴生的UserConfig，并对密码编码，但不会登录当前上下文
+     * @param userData 构建好的UserData类型
+     * @param unencryptedPasswd 未编码的原始密码
+     */
     @Transactional
     public void register(UserData userData,String unencryptedPasswd){
         String encryptedPasswd = passwordEncoder.encode(unencryptedPasswd);
@@ -101,6 +132,9 @@ public class AuthenticationService {
         return configRepository.findById(id);
     }
 
+    /**
+     * 在当前上下文中登出
+     */
     public void logout() {
         authenticationContext.logout();
     }

@@ -30,9 +30,9 @@ public class UserData  {
 
     @OneToOne
     UserConfig userConfig;
-    @OneToMany(targetEntity = Profile.class, mappedBy = "users")
+    @OneToMany(targetEntity = Profile.class, mappedBy = "userdata")
     List<Profile> profiles;
-    @OneToMany(targetEntity = Token.class, mappedBy = "users")
+    @OneToMany(targetEntity = Token.class, mappedBy = "userdata")
     List<Token> tokens;
 
     public Profile addProFile(Profile profile){

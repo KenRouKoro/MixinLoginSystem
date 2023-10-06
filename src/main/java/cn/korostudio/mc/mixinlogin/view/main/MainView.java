@@ -36,8 +36,6 @@ import org.vaadin.lineawesome.LineAwesomeIcon;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
-@AnonymousAllowed
-@PageTitle("Index")
 public class MainView extends AppLayout {
     private final H2 viewTitle = new H2();
     private final AuthenticationService authenticationService;
