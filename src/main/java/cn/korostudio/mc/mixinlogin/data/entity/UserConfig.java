@@ -20,6 +20,8 @@ public class UserConfig {
 
     @Lob
     String info = "";
+    @Lob
+    String extra = "";
 
     String avatarUrl = "";
 

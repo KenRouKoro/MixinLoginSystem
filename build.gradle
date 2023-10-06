@@ -9,7 +9,9 @@ group = 'cn.korostudio.mc'
 version = '0.0.1-SNAPSHOT'
 
 java {
-    sourceCompatibility = '21'
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
 }
 
 compileJava {
@@ -24,7 +26,8 @@ configurations {
 
 repositories {
     mavenCentral()
-    maven{ url 'https://maven.vaadin.com/vaadin-addons'}
+    maven { url 'https://maven.vaadin.com/vaadin-addons'}
+    maven { url 'https://jitpack.io' }
     mavenLocal()
 }
 
@@ -55,6 +58,7 @@ dependencies {
 
     implementation 'org.vaadin.addons.maxime:markdown-area:2.0.0'
     implementation 'com.flowingcode.vaadin.addons:zoomist-addon:1.0.0'
+    implementation 'com.github.KenRouKoro:ctoml4j:1.0.1'
 
 }
 

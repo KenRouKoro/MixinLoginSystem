@@ -41,7 +41,6 @@ public class AuthenticationService {
 
 
     public void login(String username, String password) {
-        log.info(STR."username:\{username} , password:\{password}");
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
