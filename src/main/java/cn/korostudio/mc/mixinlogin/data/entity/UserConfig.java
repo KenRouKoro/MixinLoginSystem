@@ -22,7 +22,7 @@ public class UserConfig {
     String info = "";
     @Lob
     String extra = "";
-
+    @Lob
     String avatarUrl = "";
 
     boolean useUrlAvatar = false;

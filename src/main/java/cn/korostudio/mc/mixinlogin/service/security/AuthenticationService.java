@@ -5,6 +5,7 @@ import cn.korostudio.mc.mixinlogin.data.entity.UserData;
 import cn.korostudio.mc.mixinlogin.service.jpadata.UserConfigRepository;
 import cn.korostudio.mc.mixinlogin.service.jpadata.UserDataRepository;
 import com.vaadin.flow.spring.security.AuthenticationContext;
+import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,7 @@ public class AuthenticationService {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
+    @Getter
     private UserDataRepository dataRepository;
     @Autowired
     private UserConfigRepository configRepository;
@@ -109,6 +111,10 @@ public class AuthenticationService {
         UserData userData = dataRepository.findByEmail(userDetails.getUsername());
         if (userData==null)throw  new UsernameNotFoundException(STR."not UserData define \{userDetails.getUsername()}");
         return userData;
+    }
+    @Transactional
+    public Optional<UserData> getUserDataByID(String ID){
+        return dataRepository.findById(ID);
     }
     @Transactional
     public boolean isUserTableEmpty() {

@@ -80,6 +80,9 @@ public class RegisterView extends Div {
     private TextField createUsernameField() {
         TextField usernameField = new TextField("Username");
         usernameField.setRequired(true);
+        usernameField.setPattern("^[A-Za-z\\-\\p{InHiragana}\\p{InKatakana}\\p{IsHan}]{2,16}$");
+        usernameField.setMaxLength(16);
+        usernameField.setMinLength(2);
         return usernameField;
     }
 
