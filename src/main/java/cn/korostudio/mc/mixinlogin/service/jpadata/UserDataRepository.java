@@ -1,5 +1,6 @@
 package cn.korostudio.mc.mixinlogin.service.jpadata;
 
+import cn.korostudio.mc.mixinlogin.data.entity.Token;
 import cn.korostudio.mc.mixinlogin.data.entity.UserConfig;
 import cn.korostudio.mc.mixinlogin.data.entity.UserData;
 import org.springframework.data.jpa.repository.JpaRepository;
