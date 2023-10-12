@@ -26,7 +26,9 @@ public class UserData  {
     String encryption_type;
     String roles;
     boolean enable = false;
-    private String preferredLanguage;
+    String preferredLanguage;
+
+
 
     @OneToOne
     UserConfig userConfig;
@@ -39,8 +41,8 @@ public class UserData  {
         this.profiles.add(profile);
         return profile;
     }
-    public Token addToken(Token tokens){
-        this.tokens.add(tokens);
+    public List<Token> addToken(Token token){
+        this.tokens.add(token);
         return tokens;
     }
 

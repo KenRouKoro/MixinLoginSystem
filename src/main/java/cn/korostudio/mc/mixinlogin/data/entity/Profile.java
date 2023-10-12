@@ -21,7 +21,7 @@ public class Profile {
     private String name;
     private Long timestamp;
     private String model_type;
-    //? default / slim / ysm
+    //? default / slim / extra(YSM/CPM)
     private Boolean uploadable_skin;
     private Boolean uploadable_cape;
     private String skin_url;
