@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 @Slf4j
@@ -22,10 +23,12 @@ public class UserLoadService implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        if (!repository.existsByEmail(username))throw  new UsernameNotFoundException(STR."not UserData define \{username}");
 
-        UserData userData = repository.findByEmail(username);
-
+        Optional<UserData> userDataOptional = repository.findByEmail(username);
+        if (userDataOptional.isEmpty()){
+            throw  new UsernameNotFoundException(STR."not UserData define \{username}");
+        }
+        UserData userData = userDataOptional.get();
         return User.builder()
                 .username(userData.getEmail())
                 .password(STR."{\{userData.getEncryption_type()}}\{userData.getPasswd()}")
