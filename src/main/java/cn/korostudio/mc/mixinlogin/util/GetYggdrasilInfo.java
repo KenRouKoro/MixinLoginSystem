@@ -10,7 +10,7 @@ public class GetYggdrasilInfo {
         JSONObject jsonObject = new JSONObject();
         jsonObject.append("id", profile.getUuid());
         jsonObject.append("name", profile.getName());
-        jsonObject.append("properties",getProfilePropertiesInfo(profile))
+        jsonObject.append("properties",getProfilePropertiesInfo(profile));
 
         return jsonObject;
     }

@@ -11,5 +11,7 @@ public class ApplicationConfig {
     static {
         CONFIG = TOMLConfigUtil.getInstance("Config",ApplicationConfig.class);
     }
-     boolean EnableWebView = true;
+    boolean EnableWebView = true;
+    int MaxRequest = 20;
+    int TimeWindow = 120;
 }

@@ -36,6 +36,7 @@ public class SecurityConfig extends VaadinWebSecurity {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth.requestMatchers(new AntPathRequestMatcher("/public/**")).permitAll())
                 .authorizeHttpRequests(auth -> auth.requestMatchers(new AntPathRequestMatcher("/api/**")).permitAll())
+                .authorizeHttpRequests(auth -> auth.requestMatchers(new AntPathRequestMatcher("/authserver/**")).permitAll())
                 .authorizeHttpRequests(auth -> auth.requestMatchers(new AntPathRequestMatcher("/line-awesome/**/*.svg")).permitAll());
 
 

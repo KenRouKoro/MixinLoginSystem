@@ -1,5 +1,7 @@
 package cn.korostudio.mc.mixinlogin.data.entity;
 
+import cn.hutool.json.JSONObject;
+import com.nimbusds.jose.shaded.gson.Gson;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,7 +28,8 @@ public class UserData  {
     String encryption_type;
     String roles;
     boolean enable = false;
-    String preferredLanguage;
+    String preferredLanguage = "zh_CN";
+    String select_profiles;
 
 
 
@@ -44,6 +47,15 @@ public class UserData  {
     public List<Token> addToken(Token token){
         this.tokens.add(token);
         return tokens;
+    }
+    public String getStandardFormatPassword(){
+        return STR."{\{encryption_type}\{passwd}}";
+    }
+
+    public String toYggJsonStr(){
+        return STR."""
+                {"id":"\{uid}","properties":[{"name":"preferredLanguage","value":"\{preferredLanguage}"}]}
+                """;
     }
 
 }

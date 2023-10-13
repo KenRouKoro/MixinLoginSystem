@@ -108,9 +108,9 @@ public class AuthenticationService {
     }
     @Transactional
     public UserData getUserData(UserDetails userDetails){
-        UserData userData = dataRepository.findByEmail(userDetails.getUsername());
-        if (userData==null)throw  new UsernameNotFoundException(STR."not UserData define \{userDetails.getUsername()}");
-        return userData;
+        Optional<UserData> userData = dataRepository.findByEmail(userDetails.getUsername());
+        if (userData.isEmpty())throw  new UsernameNotFoundException(STR."not UserData define \{userDetails.getUsername()}");
+        return userData.get();
     }
     @Transactional
     public Optional<UserData> getUserDataByID(String ID){
@@ -136,6 +136,10 @@ public class AuthenticationService {
             return Optional.empty();
         }
         return configRepository.findById(id);
+    }
+    @Transactional
+    public Optional<UserData>findUserDataByEmail(String email){
+        return dataRepository.findByEmail(email);
     }
 
     /**

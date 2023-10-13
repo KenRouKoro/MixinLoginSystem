@@ -23,6 +23,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.*;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 import jakarta.annotation.security.PermitAll;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -111,6 +112,7 @@ public class UserArchivesView extends VerticalLayout implements HasDynamicTitle 
         }
         creatView();
     }
+    @Slf4j
     protected static class UserDataEditDialog extends Dialog{
         UserData userData;
         AuthenticationService service;
@@ -181,13 +183,12 @@ public class UserArchivesView extends VerticalLayout implements HasDynamicTitle 
                 userData.getUserConfig().setAvatarUrl(avatarTextField.getValue());
                 userData.getUserConfig().setUseUrlAvatar(true);
             }
-            if(nameTextField.isInvalid()){
+            if(!nameTextField.isInvalid()){
                 userData.setName(nameTextField.getValue());
             }
-            if(infoTextArea.isInvalid()){
+            if(!infoTextArea.isInvalid()){
                 userData.getUserConfig().setInfo(infoTextArea.getValue());
             }
-
             service.getDataRepository().save(userData);
             showNotification("Save Success",NotificationVariant.LUMO_SUCCESS);
         }
