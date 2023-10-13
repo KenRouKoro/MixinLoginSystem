@@ -42,7 +42,7 @@ public class AuthController {
     private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     static {
         // 每隔TIME_WINDOW秒清除计数器
-        scheduler.scheduleAtFixedRate(() -> requestCounts.clear(), TIME_WINDOW, TIME_WINDOW, TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(requestCounts::clear, TIME_WINDOW, TIME_WINDOW, TimeUnit.SECONDS);
     }
 
     @Autowired

@@ -1,11 +1,20 @@
 package cn.korostudio.mc.mixinlogin.util;
 
 import cn.hutool.core.codec.Base64;
+import cn.hutool.crypto.SecureUtil;
+import cn.hutool.crypto.asymmetric.Sign;
+import cn.hutool.crypto.asymmetric.SignAlgorithm;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
+import cn.korostudio.mc.mixinlogin.MixinLoginApplication;
 import cn.korostudio.mc.mixinlogin.data.entity.Profile;
 
 public class GetYggdrasilInfo {
+    private static final Sign sign = SecureUtil.sign(SignAlgorithm.SHA1withRSA);
+    static{
+        sign.setPrivateKey(MixinLoginApplication.getPrivateKey());
+        sign.setPublicKey(MixinLoginApplication.getPublicKey());
+    }
     static public JSONObject getProfileInfo(Profile profile){
         JSONObject jsonObject = new JSONObject();
         jsonObject.append("id", profile.getUuid());
@@ -21,6 +30,8 @@ public class GetYggdrasilInfo {
         String textures_str = Base64.encode(getProfileTexturesInfo(profile).toString());
         textures.append("value", textures_str);
         //! 签名还没加
+        // 加上了
+        textures.append("signature",sign.sign(textures_str));
         jsonArray.add(textures);
         return jsonArray;
     }
